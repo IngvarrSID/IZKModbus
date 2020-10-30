@@ -46,7 +46,7 @@ public class IZKModbus {
             ModbusReader modbusReader = new ModbusReader(m,80);
             modbusIZKUI.getLabel2().setText("Подключено к "+comName);
             modbusIZKUI.getLabel1().setText("Выберите измерительный канал:");
-            String[] channelsNumbers = {"Канал 1","Канал 2","Канал 3","Канал 4","Канал 5","Канал 6" };
+            String[] channelsNumbers = {"Канал 1","Канал 2","Канал 3","Канал 4","Канал 5","Канал 6", "Все каналы" };
             modbusIZKUI.getList1().setListData(channelsNumbers);
 
             int offset = 0;
@@ -83,6 +83,49 @@ public class IZKModbus {
                     float sumMass = hexToFloat(registerValues[25], registerValues[26]);
                     float densLiq = hexToFloat(registerValues[27], registerValues[28]);
                     float densGas = hexToFloat(registerValues[29], registerValues[30]);
+                    int tempSensCount = registerValues[31];
+                    float tempSens = hexToFloat(registerValues[32],registerValues[33]);
+                    float temp1 = hexToFloat(registerValues[34],registerValues[35]);
+                    float temp2 = hexToFloat(registerValues[36],registerValues[37]);
+                    float temp3 = hexToFloat(registerValues[38],registerValues[39]);
+                    float temp4 = hexToFloat(registerValues[40],registerValues[41]);
+                    float temp5 = hexToFloat(registerValues[42],registerValues[43]);
+                    float temp6 = hexToFloat(registerValues[44],registerValues[45]);
+                    float tempSum = hexToFloat(registerValues[46],registerValues[47]);
+                    String status = Integer.toBinaryString(registerValues[52]);
+                    int stat = registerValues[52] ;
+                    String statusRevers = "";
+                    for (int j = 0; j < status.length(); j++) {
+                        statusRevers = status.charAt(j) + statusRevers;
+                    }
+
+                    System.out.println(statusRevers.substring(13));
+
+                        boolean dataExist = statusRevers.charAt(0) == '1';
+                        boolean measuring = statusRevers.charAt(1) == '1';
+                        boolean noData = statusRevers.charAt(2) == '1';
+                        boolean nullPeriod = statusRevers.charAt(3) == '1';
+                        boolean gradError = statusRevers.charAt(4) == '1';
+                        boolean nullAddress = statusRevers.charAt(5) == '1';
+                        boolean disChannel = statusRevers.charAt(6) == '1';
+                        int sensType;
+                        int sensWare = 0;
+                        int activStatus = 0;
+                    if (status.length()>8) {
+                         sensType = Integer.parseInt(statusRevers.substring(7, 9), 2);
+                         sensWare = Integer.parseInt(statusRevers.substring(9,13),2);
+                         activStatus = Integer.parseInt(statusRevers.substring(13),2);
+                    }
+                    else {
+                        sensType = Integer.parseInt(statusRevers.substring(7), 2);
+                    }
+
+
+
+                    System.out.println(sensType);
+                    System.out.println(sensWare);
+                    System.out.println(activStatus);
+
 
 
 
@@ -154,4 +197,6 @@ public class IZKModbus {
         Long l = Long.parseLong(s, 16);
         return Float.intBitsToFloat(l.intValue());
     }
+
+
 }
