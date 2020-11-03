@@ -57,17 +57,11 @@ public class IZKModbus {
             try {
                 while (true) {
                     int mode1[] = modbusReader.readModeRegister(1);
-                    System.out.println(mode1[0]);
 
                     modbusIZKUI.getLabelChannel().setText(channelsNumbers[mode1[0]]);
 
 
-
-                    int[] registerValues = modbusReader.readRegisters(0,32,2);
-                    for (int qwe: registerValues) {
-                        System.out.print(qwe);
-                    }
-                    System.out.println("");
+                    int[] registerValues = modbusReader.readRegisters(0,32,4);
 
                     int sensorAddress = registerValues[0];
                     String date = String.format("%d.%d.%d", registerValues[1],registerValues[2],registerValues[3]);
@@ -92,15 +86,13 @@ public class IZKModbus {
                     float temp5 = hexToFloat(registerValues[42],registerValues[43]);
                     float temp6 = hexToFloat(registerValues[44],registerValues[45]);
                     float tempSum = hexToFloat(registerValues[46],registerValues[47]);
+
                     String status = Integer.toBinaryString(registerValues[52]);
-                    int stat = registerValues[52] ;
                     String statusRevers = "";
-                    for (int j = 0; j < status.length(); j++) {
-                        statusRevers = status.charAt(j) + statusRevers;
+                    for (int j = 0; j < 16; j++) {
+                        if(status.length()>j) statusRevers = status.charAt(j) + statusRevers;
+                        else statusRevers = statusRevers + "0";
                     }
-
-                    System.out.println(statusRevers.substring(13));
-
                         boolean dataExist = statusRevers.charAt(0) == '1';
                         boolean measuring = statusRevers.charAt(1) == '1';
                         boolean noData = statusRevers.charAt(2) == '1';
@@ -108,23 +100,46 @@ public class IZKModbus {
                         boolean gradError = statusRevers.charAt(4) == '1';
                         boolean nullAddress = statusRevers.charAt(5) == '1';
                         boolean disChannel = statusRevers.charAt(6) == '1';
-                        int sensType;
-                        int sensWare = 0;
-                        int activStatus = 0;
-                    if (status.length()>8) {
-                         sensType = Integer.parseInt(statusRevers.substring(7, 9), 2);
-                         sensWare = Integer.parseInt(statusRevers.substring(9,13),2);
-                         activStatus = Integer.parseInt(statusRevers.substring(13),2);
+                        int sensType = Integer.parseInt(statusRevers.substring(7, 9), 2);
+                        int sensWare = Integer.parseInt(statusRevers.substring(9,13),2);
+                        int activStatus = Integer.parseInt(statusRevers.substring(13),2);;
+
+
+                    String alarm = Integer.toBinaryString(registerValues[53]);
+                    System.out.println(alarm);
+                    String alarmRevers = "";
+                    for (int j = 0; j < 16; j++) {
+                        if(alarm.length()>j) alarmRevers = alarm.charAt(j) + alarmRevers;
+                        else alarmRevers = alarmRevers + "0";
                     }
-                    else {
-                        sensType = Integer.parseInt(statusRevers.substring(7), 2);
-                    }
+                    boolean min = alarmRevers.charAt(0) == 1;
+                    boolean max = alarmRevers.charAt(1) == 1;
+                    boolean emergencyMax = alarmRevers.charAt(2) == 1;
+                    boolean lowDensity = alarmRevers.charAt(3) == 1;
+                    boolean highPressure = alarmRevers.charAt(4) == 1;
+
+                    float eLiquid = hexToFloat(registerValues[54],registerValues[55]);
+                    float period = hexToFloat(registerValues[60],registerValues[61]);
+                    float cs = hexToFloat(registerValues[64],registerValues[65]);
+                    float tempError = hexToFloat(registerValues[68],registerValues[69]);
+                    int adc = registerValues[70];
+                    float temp7 = hexToFloat(registerValues[72],registerValues[73]);
+                    float temp8 = hexToFloat(registerValues[74],registerValues[75]);
+                    float temp9 = hexToFloat(registerValues[76],registerValues[77]);
+                    float temp10 = hexToFloat(registerValues[78],registerValues[79]);
+                    float temp11 = hexToFloat(registerValues[80],registerValues[81]);
+                    float temp12 = hexToFloat(registerValues[82],registerValues[83]);
+                    float temp13 = hexToFloat(registerValues[84],registerValues[85]);
+                    float temp14 = hexToFloat(registerValues[86],registerValues[87]);
+                    float temp15 = hexToFloat(registerValues[88],registerValues[89]);
+                    float temp16 = hexToFloat(registerValues[90],registerValues[91]);
+                    float temp17 = hexToFloat(registerValues[92],registerValues[93]);
+                    float temp18 = hexToFloat(registerValues[94],registerValues[95]);
+                    float temp19 = hexToFloat(registerValues[96],registerValues[97]);
+                    float temp20 = hexToFloat(registerValues[98],registerValues[99]);
 
 
-
-                    System.out.println(sensType);
-                    System.out.println(sensWare);
-                    System.out.println(activStatus);
+                    modbusIZKUI.getTextField1().setText(date + " " + time);
 
 
 
@@ -137,10 +152,10 @@ public class IZKModbus {
                     //    }
                     //   Thread.sleep(1000);
                    //уровень
-                    int[] registerLevel = m.readInputRegisters(slaveId, 7, 2);
+                 /*   int[] registerLevel = m.readInputRegisters(slaveId, 7, 2);
                     s = Integer.toHexString(registerLevel[1]) + Integer.toHexString(registerLevel[0]);
                    Long l = Long.parseLong(s, 16);
-                    level = Float.intBitsToFloat(l.intValue());
+                    level = Float.intBitsToFloat(l.intValue());*/
 
                     //температура
                   /*  int[] registerTemp = m.readInputRegisters(slaveId, 46, 2);
@@ -148,8 +163,8 @@ public class IZKModbus {
                     Long t = Long.parseLong(s, 16);
                     float temp = Float.intBitsToFloat(t.intValue());*/
 
-                    modbusIZKUI.getTextArea1().setText("Уровень: ");
-                    modbusIZKUI.getTextArea1().append(String.valueOf(level) + " мм");
+                /*    modbusIZKUI.getTextArea1().setText("Уровень: ");
+                    modbusIZKUI.getTextArea1().append(String.valueOf(level) + " мм");*/
            /*         modbusIZKUI.getTextArea2().setText("Температура: ");
                     modbusIZKUI.getTextArea2().append(String.valueOf(temp) + " градусов цельсия");*/
                    // Thread.sleep(500);
@@ -175,13 +190,13 @@ public class IZKModbus {
                 throw e;
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
+            }  /*finally{
                 try {
                     m.disconnect();
                 } catch (ModbusChecksumException e1) {
                     e1.printStackTrace();
                 }
-            }
+            }*/
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
