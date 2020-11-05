@@ -17,7 +17,7 @@ public class Terminal {
         ConsoleHelper.writeMessage("Выберите COM порт из доступных:");
         String[] portNames = SerialPortList.getPortNames();
         modbusIZKUI.getList1().setListData(portNames);
-        modbusIZKUI.getTextArea1().setText("Выберите порт из доступных:");
+        modbusIZKUI.getAddress().setText("Выберите порт из доступных:");
         for (String s : portNames) {
             System.out.println(s);
         }

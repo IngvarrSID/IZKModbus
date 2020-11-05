@@ -15,7 +15,7 @@ public class IZKModbus {
         ModbusIZKUI modbusIZKUI = new ModbusIZKUI();
         modbusIZKUI.getLabel1().setText("");
         modbusIZKUI.getLabel2().setText("");
-        modbusIZKUI.getTextArea1().setText("Нажмите кнопку что бы начать");
+        modbusIZKUI.getAddress().setText("Нажмите кнопку что бы начать");
         while (true) {
             try {
                 if (modbusIZKUI.isB1()) break;
@@ -64,8 +64,11 @@ public class IZKModbus {
                     int[] registerValues = modbusReader.readRegisters(0, 32, 4);
 
                     int sensorAddress = registerValues[0];
-                    String date = String.format("%d.%d.%d", registerValues[1], registerValues[2], registerValues[3]);
-                    String time = String.format("%d:%d:%d", registerValues[4], registerValues[5], registerValues[6]);
+                    String date = String.format("%s.%s.%d", String.valueOf(registerValues[1]).length()<2 ? "0" + registerValues[1] : String.valueOf(registerValues[1]),
+                            String.valueOf(registerValues[2]).length()<2 ? "0" + registerValues[2] : String.valueOf(registerValues[2]), registerValues[3]);
+                    String time = String.format("%s:%s:%s", String.valueOf(registerValues[4]).length()<2 ? "0" + registerValues[4] : String.valueOf(registerValues[4]),
+                            String.valueOf(registerValues[5]).length()<2 ? "0" + registerValues[5] : String.valueOf(registerValues[5]),
+                            String.valueOf(registerValues[6]).length()<2 ? "0" + registerValues[6] : String.valueOf(registerValues[6]));
                     float level = hexToFloat(registerValues[7], registerValues[8]);
                     float level2 = hexToFloat(registerValues[9], registerValues[10]);
                     float pressure = hexToFloat(registerValues[11], registerValues[12]);
@@ -103,11 +106,10 @@ public class IZKModbus {
                     int sensType = Integer.parseInt(statusRevers.substring(7, 9), 2);
                     int sensWare = Integer.parseInt(statusRevers.substring(9, 13), 2);
                     int activStatus = Integer.parseInt(statusRevers.substring(13), 2);
-                    ;
+
 
 
                     String alarm = Integer.toBinaryString(registerValues[53]);
-                    System.out.println(alarm);
                     String alarmRevers = "";
                     for (int j = 0; j < 16; j++) {
                         if (alarm.length() > j) alarmRevers = alarm.charAt(j) + alarmRevers;
@@ -139,9 +141,23 @@ public class IZKModbus {
                     float temp19 = hexToFloat(registerValues[96], registerValues[97]);
                     float temp20 = hexToFloat(registerValues[98], registerValues[99]);
 
+                    modbusIZKUI.getAddress().setText(String.format("Адрес платы: %d",sensorAddress));
+                    modbusIZKUI.getLevel().setText(String.format("Уровень: %f мм",level));
+                    modbusIZKUI.getVolume().setText(String.format("Объем: %f м куб",volume));
+                    modbusIZKUI.getMass().setText(String.format("Масса: %f т",massLiq));
+                    modbusIZKUI.getDensity().setText(String.format("Плотность: %f кг на м куб",densLiq));
+                    modbusIZKUI.getTempSens().setText(String.format("Температура: %f градусов цельсия",tempSens));
+                    modbusIZKUI.geteLiquid().setText(String.format("Е жидкости: %f",eLiquid));
+                    modbusIZKUI.getPeriod().setText(String.format("Период платы: %f",period));
+                    modbusIZKUI.getCs().setText(String.format("CS платы: %f пФ",cs));
+                    modbusIZKUI.getData().setText(date + " " + time);
 
-                    modbusIZKUI.getTextField1().setText(date + " " + time);
-
+                    if (dataExist && !nullPeriod) modbusIZKUI.getStatus().setText("Данные получены");
+                    else if (measuring) modbusIZKUI.getStatus().setText("Идут измерения");
+                    else if (noData) modbusIZKUI.getStatus().setText("Нет связи с датчиком");
+                    else if (nullPeriod) modbusIZKUI.getStatus().setText("Нулевой период");
+                    else if (nullAddress) modbusIZKUI.getStatus().setText("Адрес датчика 0");
+                    else if (disChannel) modbusIZKUI.getStatus().setText("Канал отключен");
 
                     //  int[] registerValues = m.readInputRegisters(slaveId, offset, quantity);
                     //     for (int value : registerValues) {

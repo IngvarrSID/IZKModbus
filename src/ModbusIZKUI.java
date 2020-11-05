@@ -8,13 +8,21 @@ import java.awt.event.ActionListener;
 public class ModbusIZKUI extends JFrame{
     private JButton button1;
     private JPanel panel1;
-    private JTextArea textArea1;
-    private JTextField textField1;
-    private JTextArea textArea2;
+    private JTextField address;
+    private JTextField data;
+    private JTextField level;
     private JList<String> list1;
     private JLabel label1;
     private JLabel label2;
     private JLabel labelChannel;
+    private JTextField volume;
+    private JTextField mass;
+    private JTextField density;
+    private JTextField tempSens;
+    private JTextField eLiquid;
+    private JTextField period;
+    private JTextField cs;
+    private JLabel status;
     private DefaultListModel<String> dlm;
     private int currentSelected;
 
@@ -32,7 +40,7 @@ public class ModbusIZKUI extends JFrame{
                 System.out.println("Кнопка нажата " + b1);
             }
         });
-        textField1.addActionListener(new ActionListener() {
+        data.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 b1 = !b1;
@@ -50,8 +58,9 @@ public class ModbusIZKUI extends JFrame{
             }
         });
         setVisible(true);
-        setSize(500,300);
+        setSize(500,500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
     }
 
@@ -63,16 +72,9 @@ public class ModbusIZKUI extends JFrame{
         this.b1 = b1;
     }
 
-    public JTextArea getTextArea1() {
-        return textArea1;
-    }
-
-    public JTextArea getTextArea2() {
-        return textArea2;
-    }
 
     public JTextField getTextField1() {
-        return textField1;
+        return data;
     }
 
 
@@ -102,6 +104,50 @@ public class ModbusIZKUI extends JFrame{
 
     public JLabel getLabelChannel() {
         return labelChannel;
+    }
+
+    public JTextField getAddress() {
+        return address;
+    }
+
+    public JTextField getData() {
+        return data;
+    }
+
+    public JTextField getLevel() {
+        return level;
+    }
+
+    public JTextField getVolume() {
+        return volume;
+    }
+
+    public JTextField getMass() {
+        return mass;
+    }
+
+    public JTextField getDensity() {
+        return density;
+    }
+
+    public JTextField getTempSens() {
+        return tempSens;
+    }
+
+    public JTextField geteLiquid() {
+        return eLiquid;
+    }
+
+    public JTextField getPeriod() {
+        return period;
+    }
+
+    public JTextField getCs() {
+        return cs;
+    }
+
+    public JLabel getStatus() {
+        return status;
     }
 }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ModbusIZKUI">
-  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="12" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="439" height="232"/>
+      <xy x="20" y="20" width="316" height="591"/>
     </constraints>
     <properties>
       <toolTipText value="Программа Сида"/>
@@ -14,23 +14,23 @@
     <children>
       <component id="b3538" class="javax.swing.JButton" binding="button1" default-binding="true">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="11" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Супер кнопка"/>
         </properties>
       </component>
-      <component id="f1bfb" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+      <component id="3a300" class="javax.swing.JTextField" binding="address">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
-      <component id="145bb" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="145bb" class="javax.swing.JTextField" binding="data">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="10" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -44,17 +44,15 @@
           <text value="Связь с IZK-3"/>
         </properties>
       </component>
-      <component id="36dc1" class="javax.swing.JTextArea" binding="textArea2" default-binding="true">
+      <component id="c23e4" class="javax.swing.JTextField" binding="level">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
+          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
       <component id="43f2" class="javax.swing.JList" binding="list1" default-binding="true">
         <constraints>
-          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="1" column="3" row-span="4" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
@@ -76,12 +74,62 @@
           <text value="Label"/>
         </properties>
       </component>
+      <component id="ccc27" class="javax.swing.JTextField" binding="volume">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="b64f8" class="javax.swing.JTextField" binding="mass">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="8d8d2" class="javax.swing.JTextField" binding="density">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="b1096" class="javax.swing.JTextField" binding="tempSens">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="822ad" class="javax.swing.JTextField" binding="eLiquid">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="7db3b" class="javax.swing.JTextField" binding="period">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="c30e7" class="javax.swing.JTextField" binding="cs">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
       <component id="ddac5" class="javax.swing.JLabel" binding="labelChannel">
         <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="10" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=""/>
+        </properties>
+      </component>
+      <component id="a402d" class="javax.swing.JLabel" binding="status">
+        <constraints>
+          <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Label"/>
         </properties>
       </component>
     </children>
